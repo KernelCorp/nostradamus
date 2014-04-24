@@ -4,4 +4,6 @@
   .question-item
     .question-title= question.title
     .question-text= question.text
+    - if current_admin
+      = link_to "Question link", category_question_path(@category,question)
     = render 'answers/form', answer: question.answers.new
