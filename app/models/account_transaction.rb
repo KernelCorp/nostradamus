@@ -11,7 +11,6 @@ class AccountTransaction
     if self.status != 'done'
       self.user.account = self.user.account + self.value
       status = 'done'
-    esle raise "Transaction has already complited."
     end
   end
 
