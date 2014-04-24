@@ -1,11 +1,18 @@
-= form_for @answer, {html: {class: 'form-horizontal'}} do |f|
-  - if @answer.errors.any?
+= form_for answer, {html: {class: 'form-horizontal'}} do |f|
+  - if answer.errors.any?
     #error_explanation
       %ul
-        - @answer.errors.full_messages.each do |msg|
+        - answer.errors.full_messages.each do |msg|
           %li= msg
-  .form-group
-    = f.label :value do
-      = f.check_box :value
+  .row
+    .radio.col-sm-4
+      %label
+        = f.radio_button :value, 1, :required => true
+        Да
+    .radio.col-sm-4
+      %label
+        = f.radio_button :value, 0, :required => true
+        Нет
 
-  = f.submit 'Save'
+    .col-sm-4
+      = f.submit 'Save', :class => 'btn btn-default'
