@@ -2,8 +2,9 @@ class Category
   include Mongoid::Document
   include Mongoid::Paperclip
 
-  field :name,     type: String
-  field :priority, type: Integer
+  field :name,       type: String
+  field :priority,   type: Integer, default: 0
+  field :name_color, type: String, default: '#888888'
 
   embeds_many :questions
 
