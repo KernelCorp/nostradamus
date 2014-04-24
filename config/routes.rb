@@ -7,6 +7,9 @@ Nostradamus::Application.routes.draw do
 
   resources :categories, only: [:index, :show, :create] do
     resources :questions do
+      member do
+        get 'close'
+      end
       resources :answers, only: :create
     end
   end

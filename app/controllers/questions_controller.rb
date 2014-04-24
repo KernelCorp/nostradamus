@@ -1,5 +1,5 @@
 class QuestionsController < ApplicationController
-  before_action :set_question, only: [:show, :edit, :update, :destroy]
+  before_action :set_question, only: [:show, :edit, :update, :destroy, :close]
   before_action :set_category
 
   # GET /questions
@@ -60,6 +60,17 @@ class QuestionsController < ApplicationController
       format.html { redirect_to questions_url }
       format.json { head :no_content }
     end
+  end
+
+  def go_to_close
+
+  end
+
+  def close
+    @question.right_answer = params[:right_answer]
+    @question.yield_outcome
+    @question.status = 'closed'
+    redirect_to @question
   end
 
   private
