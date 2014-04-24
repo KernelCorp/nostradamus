@@ -1,10 +1,11 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :edit, :update, :destroy]
+  before_action :set_category
 
   # GET /questions
   # GET /questions.json
   def index
-    @questions = Question.all
+    @questions = @category.questions
   end
 
   # GET /questions/1
@@ -14,7 +15,7 @@ class QuestionsController < ApplicationController
 
   # GET /questions/new
   def new
-    @question = Question.new
+    @question = @category.questions.new
   end
 
   # GET /questions/1/edit
@@ -24,7 +25,7 @@ class QuestionsController < ApplicationController
   # POST /questions
   # POST /questions.json
   def create
-    @question = Question.new(question_params)
+    @question = @category.questions.new(question_params)
 
     respond_to do |format|
       if @question.save
@@ -64,11 +65,15 @@ class QuestionsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_question
-      @question = Question.find(params[:id])
+      @question = @category.questions.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def question_params
       params.require(:question).permit(:title, :text, :end_date, :start_date)
+    end
+
+    def set_category
+      @category = Category.find params[:category_id]
     end
 end
