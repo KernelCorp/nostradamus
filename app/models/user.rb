@@ -52,4 +52,8 @@ class User
   # field :locked_at,       type: Time
 
   has_many :answers
+
+  def answered?(question)
+    answers.where(question: question).count > 0
+  end
 end
