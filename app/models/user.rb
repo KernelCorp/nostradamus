@@ -57,4 +57,8 @@ class User
   def answered?(question)
     answers.where(question: question).count > 0
   end
+
+  def answer_for(question)
+    answers.where(question: question).first
+  end
 end
