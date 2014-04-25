@@ -11,6 +11,8 @@ class AccountTransaction
     if self.status != 'done'
       self.user.account = self.user.account + self.value
       status = 'done'
+      self.save!
+      self.user.save!
     end
   end
 
