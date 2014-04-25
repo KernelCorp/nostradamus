@@ -67,10 +67,13 @@ class QuestionsController < ApplicationController
   end
 
   def close
-    @question.right_answer = params[:right_answer]
-    @question.yield_outcome
-    @question.status = 'closed'
-    redirect_to @question
+    if !params[:right_answer].blank? && @question.active?
+      @question.right_answer = params[:right_answer]
+      @question.yield_outcome
+      @question.status = 'closed'
+      @question.save!
+    end
+    redirect_to category_questions_path(@category)
   end
 
   private
