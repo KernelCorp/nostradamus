@@ -1,36 +1,7 @@
 %h1.text-center= @category.name
 
 - @questions.each do |question|
-  .question-item
-    .row
-      .col-sm-6
-        = image_tag question.image
-      .col-sm-6
-        .question-title= question.title
-        .question-text= question.text
-        - if current_admin
-          = link_to "Question link", category_question_path(@category,question)
-        - unless current_user
-          %div Необходимо войти, чтобы ответить
-        - else
-          - unless current_user.answered? question
-            = render 'answers/form', answer: question.answers.new, question: question, category: @category
-          - else
-            %div
-              Вы ответили
-              %strong
-                = current_user.answer_for(question).value == true ? 'да' : 'нет'
-            %div.results
-              - yes_percent = (question.answers.where(value: true).count * 100 / question.answers.count).to_i
-              - no_percent = 100 - yes_percent
-              #left-yes
-                .yes-no
-                  Да
-                .percent
-                  = yes_percent.to_s + '%'
-              #right-no
-                .yes-no
-                  Нет
-                .percent
-                  = no_percent.to_s + '%'
-
+  - if question.active?
+    = render partial: 'questions/item/active', locals: {question: question}
+  - else
+    = render partial: 'questions/item/closed', locals: {question: question}
