@@ -1,4 +1,7 @@
-%h1 Список вопросов
+%h1.text-center= @category.name
 
 - @questions.each do |question|
-  = 'hello'
+  .question-item
+    .question-title= question.title
+    .question-text= question.text
+    = render 'answers/form', answer: question.answers.new
