@@ -2,11 +2,24 @@
 %html
 
   %head
+    %meta{:charset => 'utf-8'}
     %title Page title
+    = stylesheet_link_tag 'bootstrap'
+    = stylesheet_link_tag 'basic'
 
 
   %body
-    = yield
+    #main_wrapper
+      %nav{class: 'navbar navbar-default navbar-fixed-top', role: 'navigation'}
+      #nav_spacer
+      .container
+        = yield
+
+      #footer_spacer
+      #footer
+        %div
+          some text
+
 
 
 
