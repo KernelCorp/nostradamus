@@ -12,4 +12,6 @@ class Category
 
   validates_attachment_content_type :image, content_type: %w(image/jpg image/jpeg image/png)
 
+  accepts_nested_attributes_for :questions
+
 end
