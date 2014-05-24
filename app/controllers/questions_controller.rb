@@ -70,7 +70,7 @@ class QuestionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def question_params
-      params.require(:question).permit(:title, :text, :end_date, :start_date)
+      params.require(:question).permit(:title, :image, :text, :end_date, :start_date)
     end
 
     def set_category

@@ -2,6 +2,20 @@
 
 - @questions.each do |question|
   .question-item
-    .question-title= question.title
-    .question-text= question.text
-    = render 'answers/form', answer: question.answers.new
+    .row
+      .col-sm-6
+        = image_tag question.image
+      .col-sm-6
+        .question-title= question.title
+        .question-text= question.text
+        - unless current_user
+          %div Необходимо войти, чтобы ответить
+        - else
+          - unless current_user.answered? question
+            = render 'answers/form', answer: question.answers.new, question: question, category: @category
+          - else
+            %div
+              Вы ответили
+              %strong
+                = current_user.answer_for(question).value == true ? 'да' : 'нет'
+
