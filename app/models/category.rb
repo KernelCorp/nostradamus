@@ -2,7 +2,8 @@ class Category
   include Mongoid::Document
   include Mongoid::Paperclip
 
-  field :name, type: String
+  field :name,     type: String
+  field :priority, type: Integer
 
   embeds_many :questions
 
