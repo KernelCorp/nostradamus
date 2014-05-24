@@ -59,6 +59,8 @@ group :development do
   gem 'nginx-config'
 end
 
+gem 'activeadmin',         github: 'gregbell/active_admin'
+gem 'activeadmin-mongoid', github: 'elia/activeadmin-mongoid', branch: 'rails4'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
