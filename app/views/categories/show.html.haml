@@ -1,0 +1,5 @@
+%h1.text-center= @category.name
+
+- @questions.each do |question|
+  .answer_form
+    = render 'answers/form', :answer => question.answers.new

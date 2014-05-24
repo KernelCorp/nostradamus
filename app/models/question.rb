@@ -1,5 +1,7 @@
 class Question
   include Mongoid::Document
+  include Mongoid::Paperclip
+
   field :title, type: String
   field :text, type: String
   field :end_date, type: Time

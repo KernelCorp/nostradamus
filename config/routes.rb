@@ -5,7 +5,7 @@ Nostradamus::Application.routes.draw do
   ActiveAdmin.routes(self)
 
 
-  resources :categories, only: [:index, :create] do
+  resources :categories, only: [:index, :show, :create] do
     resources :questions do
       resources :answers, only: :create
     end
