@@ -9,6 +9,7 @@ class Question
 
   embedded_in :category
   has_many :answers
+  has_many :account_transactions
 
   has_mongoid_attached_file :image
 
