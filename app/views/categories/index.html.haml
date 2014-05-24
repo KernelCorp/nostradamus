@@ -4,5 +4,6 @@
   - @categories.each do |category|
     .col-sm-6.col-md-4.category_item
       %a{:href=> category_questions_path(category)}
+        .category_name_color{:style => 'background-color: '+ category.name_color.to_s}
         .category_name=category.name
         %img.category_image{:src => category.image}

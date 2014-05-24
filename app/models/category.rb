@@ -4,6 +4,7 @@ class Category
 
   field :name,     type: String
   field :priority, type: Integer
+  field :name_color, type: String, default: '#888888'
 
   embeds_many :questions
 
