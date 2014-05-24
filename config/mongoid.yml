@@ -59,7 +59,7 @@ development:
 production:
   sessions:
     default:
-      database: mygenetics_production
+      database: nostradamus_production
       hosts:
         - localhost:27017
 
