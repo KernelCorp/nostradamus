@@ -1,5 +1,9 @@
 ActiveAdmin.register Category do
-  permit_params :name, :image
+  permit_params :name, :image, :priority
+
+  controller do
+    defaults finder: :find
+  end
 
   form do |f|
     f.inputs do
