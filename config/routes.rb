@@ -11,9 +11,11 @@ Nostradamus::Application.routes.draw do
     end
   end
 
-  devise_for :users
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  resources :users, :only => [:index, :destroy]
 
   root 'categories#index'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
