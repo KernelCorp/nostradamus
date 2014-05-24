@@ -5,6 +5,7 @@ ActiveAdmin.register Category do
     f.inputs do
       f.input :name
       f.input :image, as: :file
+      f.input :priority
     end
     f.actions
   end

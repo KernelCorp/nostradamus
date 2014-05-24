@@ -1,9 +1,15 @@
 Nostradamus::Application.routes.draw do
+  resources :answers
+
   devise_for :admins, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
-  resources :questions
 
-  resources :categories
+
+  resources :categories, only: [:index, :create] do
+    resources :questions do
+      resources :answers, only: :create
+    end
+  end
 
   devise_for :users
 
