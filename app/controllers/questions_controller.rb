@@ -5,7 +5,7 @@ class QuestionsController < ApplicationController
   # GET /questions
   # GET /questions.json
   def index
-    @questions = @category.questions.asc :priority
+    @questions = @category.questions
   end
 
   # GET /questions/1
