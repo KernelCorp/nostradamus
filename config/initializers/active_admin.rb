@@ -241,3 +241,15 @@ ActiveAdmin.setup do |config|
   # config.filters = true
 
 end
+module ActiveAdmin
+  module ViewHelpers
+    module DisplayHelper
+      const_set :DISPLAY_NAME_FALLBACK, ->{
+        name, klass = "", self.class
+        name << klass.model_name.human         if klass.respond_to? :model_name
+        #name << " ##{send(klass.primary_key)}" if klass.respond_to? :primary_key
+        name.present? ? name : to_s
+      }
+    end
+  end
+end
