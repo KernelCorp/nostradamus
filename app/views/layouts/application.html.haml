@@ -18,14 +18,9 @@
             %span{:class=> 'icon-bar'}
             %span{:class=> 'icon-bar'}
           %a.navbar-brand{:href=>'/'}
-            Nostradamus
-
+            Nostravangus
 
         #main-navbar.collapse.navbar-collapse
-          %ul{:class => 'nav navbar-nav'}
-            %li
-              %a{:href => '#'}
-                some link
 
           %ul{:class => 'nav navbar-nav navbar-right'}
             - if user_signed_in?
@@ -41,5 +36,8 @@
       #footer_spacer
       #footer
         %div
-          some text
+          Powered by
+          %a{href: 'http://kerweb.ru', target: 'blank'}
+            Kernel Web
+
 
