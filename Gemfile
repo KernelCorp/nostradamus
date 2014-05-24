@@ -7,6 +7,13 @@ gem 'mongoid', '4.0.0.beta1', github: 'mongoid/mongoid'
 
 gem 'bootstrap-sass'
 
+gem 'devise'
+
+gem 'omniauth'
+gem 'omniauth-vkontakte'
+
+gem 'cancancan', '~> 1.8'
+
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
@@ -42,6 +49,16 @@ group :test, :development do
   gem 'rack'
   gem 'coveralls', require: false
 end
+
+group :development do
+  gem 'quiet_assets'
+  #gem 'rails-i18n-debug'
+  gem 'net-ssh', '~> 2.7.0'
+  gem 'capistrano'
+  gem 'rvm-capistrano'
+  gem 'nginx-config'
+end
+
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
