@@ -1,0 +1,43 @@
+!!!
+%html
+
+  %head
+    %meta{:charset => 'utf-8'}
+    %title Page title
+    = stylesheet_link_tag 'bootstrap'
+    = stylesheet_link_tag 'basic'
+
+
+  %body
+    #main_wrapper
+      %nav{class: 'navbar navbar-default navbar-fixed-top', role: 'navigation'}
+        .container-fluid
+          .navbar-header
+            %a
+
+        .collapse.navbar-collapse
+          %ul{:class => 'nav navbar-nav'}
+            %li
+              %a{:href => '#'}
+                some link
+
+          %ul{:class => 'nav navbar-nav navbar-right'}
+            %li
+              %a{:href => '#'}
+                some link
+      #nav_spacer
+      .container
+        = yield
+
+      #footer_spacer
+      #footer
+        %div
+          some text
+
+
+
+
+  //<%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  //<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  //<%= csrf_meta_tags %>
+
