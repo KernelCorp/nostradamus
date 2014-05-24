@@ -6,5 +6,6 @@ FactoryGirl.define do
     text "MyText"
     end_date "2014-05-24 14:36:18"
     start_date "2014-05-24 14:36:18"
+    association :category
   end
 end

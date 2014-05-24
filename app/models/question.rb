@@ -1,12 +1,14 @@
 class Question
   include Mongoid::Document
+  include Mongoid::Paperclip
+
   field :title, type: String
   field :text, type: String
   field :end_date, type: Time
   field :start_date, type: Time
 
   embedded_in :category
-  embeds_many :answers
+  has_many :answers
 
   has_mongoid_attached_file :image
 

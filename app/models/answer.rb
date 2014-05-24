@@ -2,7 +2,7 @@ class Answer
   include Mongoid::Document
   field :value, type: Mongoid::Boolean
 
-  embedded_in :question
+  belongs_to :question
 
   belongs_to :user
 
