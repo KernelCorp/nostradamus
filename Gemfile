@@ -3,7 +3,9 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.1'
 
-gem 'mongoid', '4.0.0.beta1', github: 'mongoid/mongoid'
+gem 'mongoid', '4.0.0.beta1'
+
+gem 'mongoid-paperclip', require: 'mongoid_paperclip'
 
 gem 'bootstrap-sass'
 
@@ -60,6 +62,8 @@ group :development do
   gem 'nginx-config'
 end
 
+gem 'activeadmin',         github: 'gregbell/active_admin'
+gem 'activeadmin-mongoid', github: 'elia/activeadmin-mongoid', branch: 'rails4'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
