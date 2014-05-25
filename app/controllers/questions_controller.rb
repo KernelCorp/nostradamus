@@ -70,7 +70,8 @@ class QuestionsController < ApplicationController
     @question.right_answer = params[:right_answer]
     @question.yield_outcome
     @question.status = 'closed'
-    redirect_to @question
+    @question.save!
+    redirect_to @category
   end
 
   private
