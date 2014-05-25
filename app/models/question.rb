@@ -33,7 +33,7 @@ class Question
 
   def community_guessed?
     return false if self.answers.count == 0
-    (self.answers.where(value: self.right_answer).count / self.answers.count) > (1 / 2)
+    (self.answers.where(value: self.right_answer).count * 100 / self.answers.count) >= 50
   end
 
 end

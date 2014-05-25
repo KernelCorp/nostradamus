@@ -8,19 +8,7 @@
       .question-text= question.text
       %p
         %strong= guessed ? "Сообщество предсказало верно" : "Сообщество ошиблось"
-      %div.results
-        - yes_percent = (question.answers.where(value: true).count * 100 / question.answers.count).to_i
-        - no_percent = 100 - yes_percent
-        #left-yes
-          .yes-no
-            Да
-          .percent
-            = yes_percent.to_s + '%'
-        #right-no
-          .yes-no
-            Нет
-          .percent
-            = no_percent.to_s + '%'
+      = render partial: 'questions/results', locals: {question: question}
       %p
         = "Правильный ответ - #{question.right_answer ? 'Да' : 'Нет'}"
       - if current_admin
