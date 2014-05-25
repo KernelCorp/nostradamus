@@ -11,6 +11,8 @@
         .question-text= question.text
         %p
           %strong= guessed ? "Сообщество предсказало верно" : "Сообщество ошиблось"
+        %p
+          = "Правильный ответ - #{question.right_answer ? 'Да' : 'Нет'}"
         - if current_admin
           = link_to "Question link", category_question_path(@category,question)
         - if user_signed_in? && current_user.answered?(question)
