@@ -1,5 +1,7 @@
 ActiveAdmin.register User do
 
+  permit_params :account
+
   controller do
     defaults finder: :find
   end

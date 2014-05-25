@@ -16,6 +16,7 @@ gem 'omniauth-vkontakte'
 
 gem 'cancancan', '~> 1.8'
 
+gem 'russian'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
