@@ -1,13 +1,16 @@
-%div.results
-  - yes_percent = (question.answers.where(value: true).count * 100 / question.answers.count).to_i
-  - no_percent = 100 - yes_percent
-  #left-yes
-    .yes-no
-      Да
-    .percent
-      = yes_percent.to_s + '%'
-  #right-no
-    .yes-no
-      Нет
-    .percent
-      = no_percent.to_s + '%'
+-if question.answers.count > 0
+  .results
+    - yes_percent = (question.answers.where(value: true).count * 100 / question.answers.count).to_i
+    - no_percent = 100 - yes_percent
+    #left-yes
+      .yes-no
+        Да
+      .percent
+        = yes_percent.to_s + '%'
+    #right-no
+      .yes-no
+        Нет
+      .percent
+        = no_percent.to_s + '%'
+- else
+  %p Никто не предсказывал
