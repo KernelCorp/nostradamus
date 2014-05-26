@@ -24,7 +24,7 @@ class Question
       winning_answers.each do |answer|
         winning_user = answer.user
         transaction = AccountTransaction.create!(value: winning_value, user: winning_user, status: 'pending', action: 'win')
-        transaction.execute_transaction
+        transaction.execute!
       end
     end
   end

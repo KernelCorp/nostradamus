@@ -8,7 +8,7 @@ ActiveAdmin.register AccountTransaction do
 
   member_action :execute do
     transaction = AccountTransaction.find params[:id]
-    transaction.execute_transaction
+    transaction.execute!
     redirect_to action: :index
   end
 

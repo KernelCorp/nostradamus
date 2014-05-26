@@ -7,12 +7,10 @@ class AccountTransaction
   belongs_to :user
   belongs_to :question
 
-  def execute_transaction
-    if self.status != 'done'
-      self.user.account = self.user.account + self.value
-      status = 'done'
-      self.save!
-      self.user.save!
+  def execute!
+    unless self.status == 'done'
+      self.user.update_attributes! account: (self.user.account + self.value)
+      self.update_attributes! status: 'done'
     end
   end
 

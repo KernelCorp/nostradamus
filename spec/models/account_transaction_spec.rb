@@ -1,21 +1,19 @@
 require 'spec_helper'
 
 describe AccountTransaction do
-  describe 'execute transaction' do
+  describe '.execute' do
     before do
       @account_transaction = FactoryGirl.create :account_transaction
       @account_transaction.user.account = 6
     end
 
     it 'execute transaction if status is not done' do
-      @account_transaction.execute_transaction
-      expect(@account_transaction.user.account).to  eq (11)
+      expect{@account_transaction.execute!}.to change{@account_transaction.user.account}.by(5)
     end
 
     it 'prevent transaction if status is done' do
       @account_transaction.status = 'done'
-      @account_transaction.execute_transaction
-      expect(@account_transaction.user.account).to eq (6)
+      expect{@account_transaction.execute!}.to change{@account_transaction.user.account}.by(0)
     end
   end
 end
