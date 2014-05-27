@@ -123,7 +123,6 @@ describe QuestionsController do
       end
 
       it "redirects to the question" do
- \
         put :update, {category_id: @question.category, id: @question.to_param, :question => valid_attributes}, valid_session
         response.should redirect_to([@question.category, @question])
       end
