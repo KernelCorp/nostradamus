@@ -7,5 +7,6 @@ FactoryGirl.define do
     end_date "2014-05-24 14:36:18"
     start_date "2014-05-24 14:36:18"
     association :category
+    association :user
   end
 end

@@ -1,13 +1,13 @@
 class QuestionsController < ApplicationController
-  before_action :set_category
-  before_action :set_question, only: [:show, :edit, :update, :destroy, :close]
-
-  authorize_resource
+  #before_action :set_category
+  #before_action :set_question, only: [:show, :edit, :update, :destroy, :close]
+  load_resource :category
+  load_and_authorize_resource :question, through: :category
 
   # GET /questions
   # GET /questions.json
   def index
-    @questions = @category.questions
+    #@questions = @category.questions
   end
 
   # GET /questions/1
@@ -17,7 +17,7 @@ class QuestionsController < ApplicationController
 
   # GET /questions/new
   def new
-    @question = @category.questions.new
+    #@question = @category.questions.new
   end
 
   # GET /questions/1/edit
@@ -27,7 +27,7 @@ class QuestionsController < ApplicationController
   # POST /questions
   # POST /questions.json
   def create
-    @question = @category.questions.new(question_params)
+    #@question = @category.questions.new(question_params)
 
     respond_to do |format|
       if @question.save
@@ -45,7 +45,7 @@ class QuestionsController < ApplicationController
   def update
     respond_to do |format|
       if @question.update(question_params)
-        format.html { redirect_to @question, notice: 'Question was successfully updated.' }
+        format.html { redirect_to [@category, @question], notice: 'Question was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -59,7 +59,7 @@ class QuestionsController < ApplicationController
   def destroy
     @question.destroy
     respond_to do |format|
-      format.html { redirect_to questions_url }
+      format.html { redirect_to category_questions_url }
       format.json { head :no_content }
     end
   end

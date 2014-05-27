@@ -34,4 +34,8 @@ class User
   def answer_for(question)
     answers.where(question: question).first
   end
+
+  def questions
+    Category.all.inject([]) { |questions, category| questions + category.questions.where(user: self) }
+  end
 end

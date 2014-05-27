@@ -10,6 +10,10 @@ class Question
   field :status, type: String
 
   embedded_in :category
+  embeds_one  :user
+
+  belongs_to :user, class_name: "User", inverse_of: :user, foreign_key: 'user_id'
+
   has_many :answers
   has_many :account_transactions
 
