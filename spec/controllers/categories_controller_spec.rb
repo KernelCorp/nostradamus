@@ -37,14 +37,4 @@ describe CategoriesController do
       assigns(:categories).should eq([category])
     end
   end
-
-  describe "GET show" do
-    it "assigns the requested category as @category" do
-      category = Category.create! valid_attributes
-      get :show, {:id => category.to_param}, valid_session
-      assigns(:category).should eq(category)
-    end
-  end
-
-
 end

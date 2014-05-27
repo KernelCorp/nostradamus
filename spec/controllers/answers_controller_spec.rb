@@ -32,42 +32,28 @@ describe AnswersController do
 
 
   describe "POST create" do
+    before do
+      @question = FactoryGirl.create :question
+      @user     = FactoryGirl.create :user
+      sign_in @user
+    end
     describe "with valid params" do
       it "creates a new Answer" do
         expect {
-          post :create, {:answer => valid_attributes}, valid_session
+          post :create, {category_id: @question.category, question_id: @question, answer: valid_attributes}
         }.to change(Answer, :count).by(1)
       end
 
       it "assigns a newly created answer as @answer" do
-        post :create, {:answer => valid_attributes}, valid_session
+        post :create, {category_id: @question.category, question_id: @question, answer: valid_attributes}
         assigns(:answer).should be_a(Answer)
         assigns(:answer).should be_persisted
       end
 
       it "redirects to the created answer" do
-        post :create, {:answer => valid_attributes}, valid_session
-        response.should redirect_to(Answer.last)
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved answer as @answer" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Answer.any_instance.stub(:save).and_return(false)
-        post :create, {:answer => { "value" => "invalid value" }}, valid_session
-        assigns(:answer).should be_a_new(Answer)
-      end
-
-      it "re-renders the 'new' template" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Answer.any_instance.stub(:save).and_return(false)
-        post :create, {:answer => { "value" => "invalid value" }}, valid_session
-        response.should render_template("new")
+        post :create, {category_id: @question.category, question_id: @question, answer: valid_attributes}
+        response.should redirect_to(category_questions_path(@question.category))
       end
     end
   end
-
-
-
 end
