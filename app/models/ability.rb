@@ -8,7 +8,7 @@ class Ability
     can :create, Answer
     can :create, Question if user.account > 1000
     can [:edit, :update, :destroy, :close], Question do |question|
-      user.question.include? question
+      user.questions.include? question
     end
   end
 end

@@ -47,16 +47,26 @@ describe QuestionsController do
   end
 
   describe "GET new" do
-    it "assigns a new question as @question" do
+    before :each do
       @category = FactoryGirl.create :category
+      @user = FactoryGirl.create :user, account: 2000
+      sign_in @user
+    end
+    it "assigns a new question as @question" do
       get :new, {category_id: @category.to_param}, valid_session
       assigns(:question).should be_a_new(Question)
+    end
+
+    it 'allowed only for users with account > 1000' do
+      @user.update_attributes! account: 0
+      expect{get :new, {category_id: @category.to_param}}.to raise_error(CanCan::AccessDenied)
     end
   end
 
   describe "GET edit" do
     it "assigns the requested question as @question" do
       question = FactoryGirl.create :question
+      sign_in question.user
       get :edit, {category_id: question.category, id: question.to_param}, valid_session
       assigns(:question).should eq(question)
     end
@@ -65,6 +75,8 @@ describe QuestionsController do
   describe "POST create" do
     before do
       @category = FactoryGirl.create :category
+      @user = FactoryGirl.create :user, account: 2000
+      sign_in @user
     end
 
     describe "with valid params" do
@@ -84,32 +96,36 @@ describe QuestionsController do
         post :create, {category_id: @category.to_param, question: valid_attributes}, valid_session
         response.should redirect_to(Question.last)
       end
+
+      it 'question was added to user' do
+        expect{
+          post :create, {category_id: @category.to_param, question: valid_attributes}
+        }.to change{@user.questions.count}.by(1)
+      end
     end
 
   end
 
   describe "PUT update" do
     describe "with valid params" do
+      before :each do
+        @question = FactoryGirl.create :question 
+        sign_in @question.user
+      end
       it "updates the requested question" do
-        question = FactoryGirl.create :question
-        # Assuming there are no other questions in the database, this
-        # specifies that the Question created on the previous line
-        # receives the :update_attributes message with whatever params are
-        # submitted in the request.
         Question.any_instance.should_receive(:update).with({ "title" => "MyString" })
-        put :update, {category_id: question.category, id: question.to_param, question: valid_attributes}, valid_session
+        put :update, {category_id: @question.category, id: @question.to_param, question: valid_attributes}, valid_session
       end
 
       it "assigns the requested question as @question" do
-        question = FactoryGirl.create :question
-        put :update, {category_id: question.category, id: question.to_param, question: valid_attributes}, valid_session
-        assigns(:question).should eq(question)
+        put :update, {category_id: @question.category, id: @question.to_param, question: valid_attributes}, valid_session
+        assigns(:question).should eq(@question)
       end
 
       it "redirects to the question" do
-        question = FactoryGirl.create :question
-        put :update, {category_id: question.category, id: question.to_param, :question => valid_attributes}, valid_session
-        response.should redirect_to([question.category, question])
+ \
+        put :update, {category_id: @question.category, id: @question.to_param, :question => valid_attributes}, valid_session
+        response.should redirect_to([@question.category, @question])
       end
     end
 
@@ -119,7 +135,7 @@ describe QuestionsController do
   describe "DELETE destroy" do
     before :each do
       @question = FactoryGirl.create :question
-      @category = @question.category
+      sign_in @question.user
     end
     it "destroys the requested question" do
       expect {
@@ -128,8 +144,24 @@ describe QuestionsController do
     end
 
     it "redirects to the questions list" do
-      delete :destroy, {category_id: @category, id: @question.to_param}, valid_session
+      delete :destroy, {category_id: @question.category, id: @question.to_param}, valid_session
       response.should redirect_to(category_questions_url)
+    end
+  end
+
+  describe 'GET close' do
+    before :each do
+      @question = FactoryGirl.create :question
+      sign_in @question.user
+      get :close, category_id: @question.category, id: @question, right_answer: true
+    end
+
+    it "change status to 'closed'" do
+      expect(@question.reload.status).to eq('closed')
+    end
+
+    it 'change right_answer' do
+      expect(@question.reload.right_answer).to be_true
     end
   end
 

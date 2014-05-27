@@ -1,34 +1,27 @@
 class QuestionsController < ApplicationController
-  #before_action :set_category
-  #before_action :set_question, only: [:show, :edit, :update, :destroy, :close]
+  before_action :authenticate_user!, except: [:index, :show]
+
   load_resource :category
   load_and_authorize_resource :question, through: :category
 
   # GET /questions
   # GET /questions.json
-  def index
-    #@questions = @category.questions
-  end
+  def index; end
 
   # GET /questions/1
   # GET /questions/1.json
-  def show
-  end
+  def show; end
 
   # GET /questions/new
-  def new
-    #@question = @category.questions.new
-  end
+  def new; end
 
   # GET /questions/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /questions
   # POST /questions.json
   def create
-    #@question = @category.questions.new(question_params)
-
+    @question.user = current_user
     respond_to do |format|
       if @question.save
         format.html { redirect_to [@category, @category.questions.new], notice: 'Question was successfully created.' }
@@ -69,6 +62,9 @@ class QuestionsController < ApplicationController
   end
 
   def close
+    @category = Category.find params[:category_id]
+    @question = @category.questions.find(params[:id])
+    authorize! :close, @question
     if !params[:right_answer].blank? && @question.active?
       @question.update_attributes! status: 'closed', right_answer: params[:right_answer]
       @question.yield_outcome
@@ -77,17 +73,8 @@ class QuestionsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_question
-      @question = @category.questions.find(params[:id])
-    end
-
     # Never trust parameters from the scary internet, only allow the white list through.
     def question_params
       params.require(:question).permit(:title, :image, :text, :end_date, :start_date)
-    end
-
-    def set_category
-      @category = Category.find params[:category_id]
     end
 end
