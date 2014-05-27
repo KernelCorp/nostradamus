@@ -135,6 +135,7 @@ describe QuestionsController do
   describe "DELETE destroy" do
     before :each do
       @question = FactoryGirl.create :question
+      @category = @question.category
       sign_in @question.user
     end
     it "destroys the requested question" do
