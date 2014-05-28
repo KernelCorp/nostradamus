@@ -36,5 +36,10 @@ describe User do
       FactoryGirl.create :answer_for_closed_question, user: user, value: true
       expect(user.rate).to eq(50)
     end
+
+    it 'returns 0 is user has not answer' do
+      user = FactoryGirl.create :user
+      expect(user.rate).to eq(0)
+    end
   end
 end

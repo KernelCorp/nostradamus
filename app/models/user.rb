@@ -39,8 +39,12 @@ class User
 
   def rate
     Rails.cache.fetch "users_rate_#{self.id}", expires_in: 1.hour do
-      right_count = answers.inject(0) { |sum, answer| sum + (answer.right? ? 1 : 0) }
-      right_count * 100 / answers.count
+      if answers.size > 0
+        right_count = answers.inject(0) { |sum, answer| sum + (answer.right? ? 1 : 0) }
+        right_count * 100 / answers.size
+      else
+        0
+      end
     end
   end
 end
