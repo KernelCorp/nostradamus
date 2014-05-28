@@ -28,4 +28,13 @@ describe User do
       expect(@user.questions).to eq([@question_1, @question_2])
     end
   end
+
+  describe '.rate' do
+    it 'returns percentage of right answer' do
+      user = FactoryGirl.create :user
+      FactoryGirl.create :answer_for_closed_question, user: user, value: false
+      FactoryGirl.create :answer_for_closed_question, user: user, value: true
+      expect(user.rate).to eq(50)
+    end
+  end
 end
