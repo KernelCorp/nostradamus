@@ -8,6 +8,7 @@ class Category
   field :is_visible, type: Boolean, default: true
 
   has_many :new_questions
+  embeds_many :questions
 
   has_mongoid_attached_file :image
 
