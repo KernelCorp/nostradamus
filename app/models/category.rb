@@ -7,7 +7,7 @@ class Category
   field :name_color, type: String,  default: '#888888'
   field :is_visible, type: Boolean, default: true
 
-  embeds_many :questions
+  has_many :questions, class: 'NewQuestion'
 
   has_mongoid_attached_file :image
 
