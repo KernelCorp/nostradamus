@@ -8,6 +8,6 @@ class Answer
   validates_uniqueness_of :user, scope: :question
 
   def right?
-    !question.active? && (question.right_answer == value)
+    !question.nil? && !question.active? && (question.right_answer == value)
   end
 end
