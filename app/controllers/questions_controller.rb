@@ -2,7 +2,7 @@ class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
 
   load_resource :category
-  load_and_authorize_resource :question, through: :category
+  load_and_authorize_resource :new_question, through: :category
 
   # GET /questions
   # GET /questions.json
