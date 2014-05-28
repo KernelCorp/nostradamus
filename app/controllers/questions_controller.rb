@@ -2,13 +2,11 @@ class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
 
   load_resource :category
-  load_resource :new_question, through: :category
+  load_resource :question, through: :category
 
   # GET /questions
   # GET /questions.json
-  def index
-    @questions = @category.new_questions
-  end
+  def index; end
 
   # GET /questions/1
   # GET /questions/1.json
