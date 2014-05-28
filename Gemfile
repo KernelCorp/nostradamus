@@ -52,6 +52,8 @@ group :test, :development do
   gem 'database_cleaner'
   gem 'rack'
   gem 'coveralls', require: false
+  gem 'cucumber-rails', require: false
+  gem 'selenium-webdriver'
 end
 
 group :development do
