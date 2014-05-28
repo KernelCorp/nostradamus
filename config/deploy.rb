@@ -56,7 +56,7 @@ namespace :deploy do
   end
 
   task :run_rake do
-    puts "Run rake task - #{task}"
-    run "cd #{deploy_to}/current && bundle exec rake #{task} RIALS_ENV=#{rails_env}"
+    puts "Run rake task - #{task_name}"
+    run "cd #{deploy_to}/current && bundle exec rake #{task_name} RAILS_ENV=#{rails_env}"
   end
 end
