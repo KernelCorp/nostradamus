@@ -10,6 +10,7 @@ ActiveAdmin.register Category do
       f.input :name
       f.input :image, as: :file
       f.input :priority
+      f.input :is_visible, as: :boolean
     end
     f.actions
   end

@@ -36,5 +36,11 @@ describe CategoriesController do
       get :index, {}, valid_session
       assigns(:categories).should eq([category])
     end
+
+    it 'shows only visible category' do
+      category = FactoryGirl.create :category, is_visible: false
+      get :index, {}
+      assigns(:categories).should eq([])
+    end
   end
 end

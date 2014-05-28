@@ -54,4 +54,9 @@ namespace :deploy do
   task :init_vhost do
     run "ln -s #{deploy_to}/current/config/#{application}.vhost /etc/nginx/sites-enabled/#{application}"
   end
+
+  task :run_rake do
+    puts "Run rake task - #{task}"
+    run "cd #{deploy_to}/current && bundle exec rake #{task} RIALS_ENV=#{rails_env}"
+  end
 end
