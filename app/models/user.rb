@@ -16,12 +16,10 @@ class User
 
   field :account, type: Integer, default: 0
 
-  def self.find_for_vkontakte_oauth access_token
-    if user = User.where(:url => access_token.info.urls.Vkontakte).first
-      user
-    else
-      User.create!(:provider => access_token.provider, :url => access_token.info.urls.Vkontakte, :username => access_token.info.name, :nickname => access_token.extra.raw_info.domain, :email => SecureRandom.hex(6) + '@gmail.com', :password => Devise.friendly_token[0,20])
-    end
+  def self.find_for_vkontakte_oauth(access_token)
+    user = User.where(:url => access_token.info.urls.Vkontakte).first
+    return user unless user.nil?
+    User.create!(:provider => access_token.provider, :url => access_token.info.urls.Vkontakte, :username => access_token.info.name, :nickname => access_token.extra.raw_info.domain, :email => SecureRandom.hex(6) + '@gmail.com', :password => Devise.friendly_token[0,20])
   end
 
   has_many :answers
