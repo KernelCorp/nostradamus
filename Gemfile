@@ -16,6 +16,8 @@ gem 'omniauth-vkontakte'
 
 gem 'cancancan', '~> 1.8'
 
+gem 'mongoid_slug'
+
 gem 'russian'
 
 # Use SCSS for stylesheets

@@ -5,7 +5,7 @@ Nostradamus::Application.routes.draw do
   ActiveAdmin.routes(self)
 
 
-  resources :categories, only: :index do
+  resources :categories, only: [:index, :show] do
     resources :questions do
       member do
         get 'close'

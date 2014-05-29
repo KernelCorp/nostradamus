@@ -1,6 +1,7 @@
 class Category
   include Mongoid::Document
   include Mongoid::Paperclip
+  include Mongoid::Slug
 
   field :name,       type: String
   field :priority,   type: Integer, default: 0
@@ -11,10 +12,12 @@ class Category
 
   has_mongoid_attached_file :image
 
-  validates_attachment_content_type :image, content_type: %w(image/jpg image/jpeg image/png)
-
   accepts_nested_attributes_for :questions
 
   scope :visible, -> {where is_visible: true}
 
+  slug :name
+
+  validates_attachment_content_type :image, content_type: %w(image/jpg image/jpeg image/png)
+  validates_uniqueness_of :name
 end
