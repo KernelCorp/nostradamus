@@ -10,6 +10,7 @@ class Question
   field :status, type: String
 
   belongs_to :category
+  belongs_to :user
 
   has_many :answers
   has_many :account_transactions
