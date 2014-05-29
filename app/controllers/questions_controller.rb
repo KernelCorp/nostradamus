@@ -25,7 +25,6 @@ class QuestionsController < ApplicationController
     @question.category = @category
     respond_to do |format|
       if @question.save
-        publish_to_vk
         format.html { redirect_to [@category, @category.questions.new], notice: 'Question was successfully created.' }
         format.json { render action: 'show', status: :created, location: @question }
       else
@@ -78,12 +77,5 @@ class QuestionsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def question_params
       params.require(:question).permit(:title, :image, :text, :end_date, :start_date)
-    end
-
-    def publish_to_vk
-      vk = VkontakteApi.authorize type: :app_server
-      vk.wall.post owner_id: '-72162452',
-                   from_group: 1,
-                   message: "#{@question.text}\nПредскажи перейдя по ссылке - #{category_questions_url(@question.category)}"
     end
 end
