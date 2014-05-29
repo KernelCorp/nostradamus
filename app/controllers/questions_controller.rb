@@ -81,7 +81,7 @@ class QuestionsController < ApplicationController
     end
 
     def publish_to_vk
-      vk = VkontakteApi::Client.new
+      vk = VkontakteApi.authorize type: :app_server
       vk.wall.post owner_id: '-72162452',
                    from_group: 1,
                    message: "#{@question.text}\nПредскажи перейдя по ссылке - #{category_questions_url(@question.category)}"
