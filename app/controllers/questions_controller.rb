@@ -21,7 +21,8 @@ class QuestionsController < ApplicationController
   # POST /questions
   # POST /questions.json
   def create
-    @question.user = current_user
+    @question.user     = current_user
+    @question.category = @category
     respond_to do |format|
       if @question.save
         publish_to_vk
