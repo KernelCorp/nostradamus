@@ -10,20 +10,14 @@ class User
 
 
   field :provider, type: String
-  field :url, type: String
+  field :url,      type: String
   field :username, type: String
   field :nickname, type: String
-
-  field :account, type: Integer, default: 0
-
-  def self.find_for_vkontakte_oauth(access_token)
-    user = User.where(:url => access_token.info.urls.Vkontakte).first
-    return user unless user.nil?
-    User.create!(:provider => access_token.provider, :url => access_token.info.urls.Vkontakte, :username => access_token.info.name, :nickname => access_token.extra.raw_info.domain, :email => SecureRandom.hex(6) + '@gmail.com', :password => Devise.friendly_token[0,20])
-  end
+  field :account,  type: Integer, default: 0
 
   has_many :answers
   has_many :account_transactions
+  has_many :questions
 
   def answered?(question)
     answers.where(question: question).count > 0
@@ -33,18 +27,21 @@ class User
     answers.where(question: question).first
   end
 
-  def questions
-    Category.all.inject([]) { |questions, category| questions + category.questions.where(user: self) }
-  end
-
   def rate
     Rails.cache.fetch "users_rate_#{self.id}", expires_in: 1.hour do
-      if answers.size > 0
-        right_count = answers.inject(0) { |sum, answer| sum + (answer.right? ? 1 : 0) }
-        right_count * 100 / answers.size
+      right_count = answers.right.size
+      wrong_count = answers.wrong.size
+      if (right_count + wrong_count) > 0
+        right_count * 100 / (right_count + wrong_count)
       else
         0
       end
     end
+  end
+
+  def self.find_for_vkontakte_oauth(access_token)
+    user = User.where(:url => access_token.info.urls.Vkontakte).first
+    return user unless user.nil?
+    User.create!(:provider => access_token.provider, :url => access_token.info.urls.Vkontakte, :username => access_token.info.name, :nickname => access_token.extra.raw_info.domain, :email => SecureRandom.hex(6) + '@gmail.com', :password => Devise.friendly_token[0,20])
   end
 end

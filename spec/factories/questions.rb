@@ -1,7 +1,7 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  factory :question do
+  factory :question, class: 'Question' do
     title "MyString"
     text "MyText"
     end_date "2014-05-24 14:36:18"
