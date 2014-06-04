@@ -149,11 +149,11 @@ describe QuestionsController do
     end
   end
 
-  describe 'GET close' do
+  describe 'PUT close' do
     before :each do
       @question = FactoryGirl.create :question
       sign_in @question.user
-      get :close, category_id: @question.category, id: @question, right_answer: true
+      put :close, category_id: @question.category, id: @question, right_answer: true
     end
 
     it "change status to 'closed'" do

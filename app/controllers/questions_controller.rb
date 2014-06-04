@@ -25,7 +25,7 @@ class QuestionsController < ApplicationController
     @question.category = @category
     respond_to do |format|
       if @question.save
-        format.html { redirect_to [@category, @category.questions.new], notice: 'Question was successfully created.' }
+        format.html { redirect_to @category, notice: 'Question was successfully created.' }
         format.json { render action: 'show', status: :created, location: @question }
       else
         format.html { render action: 'new' }

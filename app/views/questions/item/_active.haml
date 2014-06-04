@@ -5,8 +5,6 @@
     .col-sm-6
       .question-title= question.title
       .question-text= question.text
-      - if current_admin
-        = link_to "Question link", category_question_path(@category,question)
       - unless current_user
         %div Необходимо войти, чтобы ответить
       - else
@@ -18,3 +16,12 @@
             %strong
               = current_user.answer_for(question).value == true ? 'да' : 'нет'
           = render partial: 'questions/results', locals: {question: question}
+      - if can? :close, question
+        = form_tag close_category_question_path(question.category, question), method: 'put' do
+          = hidden_field_tag :right_answer, true
+          = submit_tag 'Закрыть с правильным ответом -  "Да"', class: 'btn btn-success', style: "width:280px"
+        = form_tag close_category_question_path(question.category, question), method: 'put' do
+          = hidden_field_tag :right_answer, false
+          = submit_tag 'Закрыть с правильным ответом - "Нет"', class: 'btn btn-danger'
+
+

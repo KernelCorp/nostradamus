@@ -11,8 +11,6 @@
       = render partial: 'questions/results', locals: {question: question}
       %p
         = "Правильный ответ - #{question.right_answer ? 'Да' : 'Нет'}"
-      - if current_admin
-        = link_to "Question link", category_question_path(@category,question)
       - if user_signed_in? && current_user.answered?(question)
         %div
           Вы ответили
