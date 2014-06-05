@@ -17,10 +17,10 @@
               = current_user.answer_for(question).value == true ? 'да' : 'нет'
           = render partial: 'questions/results', locals: {question: question}
       - if can? :close, question
-        = form_tag close_category_question_path(question.category, question), method: 'put' do
+        = form_tag close_category_question_path(question.category, question), method: 'put', class: 'close-question' do
           = hidden_field_tag :right_answer, true
           = submit_tag 'Закрыть с правильным ответом -  "Да"', class: 'btn btn-success', style: "width:280px"
-        = form_tag close_category_question_path(question.category, question), method: 'put' do
+        = form_tag close_category_question_path(question.category, question), method: 'put', class: 'close-question' do
           = hidden_field_tag :right_answer, false
           = submit_tag 'Закрыть с правильным ответом - "Нет"', class: 'btn btn-danger'
 
