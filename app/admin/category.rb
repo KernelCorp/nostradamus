@@ -1,5 +1,5 @@
 ActiveAdmin.register Category do
-  permit_params :name, :image, :priority
+  permit_params :name, :image, :priority, :is_visible
 
   controller do
     defaults finder: :find

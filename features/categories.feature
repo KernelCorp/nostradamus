@@ -3,7 +3,7 @@ Feature: Categories
 
   Scenario: Show visible categories
     Given a visible category with name: "cats"
-      And a invisible category with name: "unicorns"
+      And an invisible category with name: "unicorns"
     When I go to "/"
     Then I should see the category "cats"
      But I shouldn't see the category "unicorns"

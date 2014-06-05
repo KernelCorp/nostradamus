@@ -1,7 +1,7 @@
 .row
   - @categories.each do |category|
     .col-sm-6.col-md-4.category_item
-      %a{:href=> category_questions_path(category)}
+      %a{:href=> category_questions_path(category), id: category.name}
         .category_name_color{:style => 'background-color: '+ category.name_color.to_s}
         .category_name=category.name
         = image_tag category.image, class: 'category_image'
