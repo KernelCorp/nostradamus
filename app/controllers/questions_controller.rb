@@ -25,6 +25,7 @@ class QuestionsController < ApplicationController
     @question.category = @category
     respond_to do |format|
       if @question.save
+        Event.create! type: 'new_question', question: @question
         format.html { redirect_to @category, notice: 'Question was successfully created.' }
         format.json { render action: 'show', status: :created, location: @question }
       else
@@ -69,6 +70,7 @@ class QuestionsController < ApplicationController
     if !params[:right_answer].blank? && @question.active?
       @question.update_attributes! status: 'closed', right_answer: params[:right_answer]
       @question.yield_outcome
+      Event.create! type: 'close_question', question: @question
     end
     redirect_to category_questions_path(@category)
   end

@@ -14,6 +14,7 @@ class Question
 
   has_many :answers
   has_many :account_transactions
+  has_many :events
 
   has_mongoid_attached_file :image
 

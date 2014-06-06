@@ -14,6 +14,7 @@ class User
   field :username, type: String
   field :nickname, type: String
   field :account,  type: Integer, default: 0
+  field :events_last_viewed_at, type: DateTime
 
   has_many :answers
   has_many :account_transactions
@@ -38,6 +39,28 @@ class User
       end
     end
   end
+
+  def events
+    questions = self.answered_questions
+    events = Event.where(type: 'new_question').all
+    #TODO: Convert to query
+    closed_events = Array.new
+    Event.where(type: 'close_question').all.each do |event|
+      if questions.include? event.question
+        closed_events << event
+      end
+    end
+    events | closed_events
+  end
+
+  def answered_questions
+    questions = Array.new
+    self.answers.each do |answer|
+      questions << answer.question
+    end
+    questions
+  end
+
 
   def self.find_for_vkontakte_oauth(access_token)
     user = User.where(:url => access_token.info.urls.Vkontakte).first

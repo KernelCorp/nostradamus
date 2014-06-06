@@ -1,0 +1,19 @@
+%h1 Listing events
+
+%table
+  %tr
+    %th Question
+    %th Type
+    %th
+    %th
+
+  - @events.each do |event|
+    - (@new_events.include? event) ? event_class = 'new_event' : event_class = ''
+    %tr{class: event_class}
+      %td
+        %div
+          = event.question.title
+      %td
+        %div
+          = event.type
+%br

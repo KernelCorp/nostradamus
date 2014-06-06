@@ -1,9 +1,10 @@
 Nostradamus::Application.routes.draw do
-  resources :answers
 
   devise_for :admins, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
+  resources :answers
+  resources :events, only: [:index]
 
   resources :categories, only: [:index, :show] do
     resources :questions do
