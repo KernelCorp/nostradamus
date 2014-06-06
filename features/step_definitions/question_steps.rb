@@ -12,8 +12,7 @@ Then (/^I should see question: "(.*?)"$/) do |text|
 end
 
 And (/^I answer "(.*?)"$/) do |answer|
-  page.choose('answer_value_0')
-  find("input[value='OK']").click
+  find('[title=' + answer + ']').click
 end
 
 And (/^I should see text "(.*?)"$/) do |text|
@@ -39,16 +38,21 @@ And /^I submit the form "(.*?)"$/ do |form|
 end
 
 And /^I click on the close button with answer "(.*?)" for question: "(.*?)"$/ do |answer, text|
-  if answer == 'true'
-    find('[type=submit]').click
-  end
+  find('#' + answer).click
 end
 
 #TODO: Fix last steps
 Then /^I should see the close question "(.*?)"$/ do |text|
-  page.should have_css('.guessed')
+  page.should have_css('.not_guessed')
 end
 
 And /^I should see right answer - "(.*?)" for the question: "(.*?)"$/ do |answer, text|
   page.should have_content('Правильный ответ - ' + answer)
+end
+
+And /^question with text: "(.*?)" was created by user wit email: "(.*?)"$/ do |text, email|
+  question = Question.find_by(text: text)
+  user = User.find_by(email: email)
+  question.user = user
+  question.save!
 end

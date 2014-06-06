@@ -15,7 +15,7 @@ Feature: Questions
     When I go to "/"
      And I click on the category "Ukraine"
     Then I should see question: "Is who does not jump Moskal?"
-     And I answer "No"
+     And I answer "Нет"
      And I should see text "Вы ответили нет"
      And I should see statistics
      But I shouldn't see a form for answer for the question "Is who does not jump Moskal?"
@@ -31,11 +31,12 @@ Feature: Questions
 
   Scenario: Owner close question
     Given a user with email: "yawitek@tsar.ua", account: 9998
-      And a question in the category "Ukraine" with text: "Am I legitimacy"
-      And I signed in as user with email: "yawitek@tsar.ua"
+    And a question in the category "Ukraine" with text: "Am I legitimacy"
+    And question with text: "Am I legitimacy" was created by user wit email: "yawitek@tsar.ua"
+    And I signed in as user with email: "yawitek@tsar.ua"
     When I go to "/"
      And I click on the category "Ukraine"
-     And I click on the close button with answer "True" for question: "Am I legitimacy"
+     And I click on the close button with answer "Да" for question: "Am I legitimacy"
     Then I should see the close question "Am I legitimacy"
      And I should see right answer - "Да" for the question: "Am I legitimacy"
 

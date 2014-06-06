@@ -7,12 +7,12 @@
             - answer.errors.full_messages.each do |msg|
               %li= msg
       = f.hidden_field :value, value: 1
-      = f.button type: :submit, class: 'btn-lg  btn-default', title: 'Ответить "Да"' do
+      = f.button type: :submit, class: 'btn-lg  btn-default', title: 'Да' do
         %i.glyphicon.glyphicon-thumbs-up
   .col-sm-6
     = form_for [category, question, answer] do |f|
       = f.hidden_field :value, value: 0
-      = f.button type: :submit, class: 'btn-lg  btn-default', title: 'Ответить "Нет"' do
+      = f.button type: :submit, class: 'btn-lg  btn-default', title: 'Нет' do
         %i.glyphicon.glyphicon-thumbs-down
 
 
