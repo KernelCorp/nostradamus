@@ -6,7 +6,7 @@ server {
   listen 80;
 
   client_max_body_size 1G;
-  server_name nostravangus.kerweb.ru www.nostravangus.kerweb.ru;
+  server_name nostravangus.kerweb.ru www.nostravangus.kerweb.ru nostravangus.ru;
   keepalive_timeout 5;
   root /var/www/nostradamus/current/public;
       try_files $uri/index.html $uri.html $uri @myapp;
@@ -22,4 +22,9 @@ error_page 500 502 503 504 /500.html;
 location = /500.html {
   root /var/www/nostradamus/current/public;
 }
+}
+server {
+        listen 80;
+        server_name www.nostravangus.ru;
+        return 301 $scheme://nostravangus.ru$request_uri;
 }
