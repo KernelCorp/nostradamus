@@ -19,12 +19,13 @@
           .question-title= question.title
           .question-text=   question.text
       .row
-        - if current_user && (current_user.answered? question)
-          %div
-            Вы ответили
-            %strong
-              = current_user.answer_for(question).value == true ? 'да' : 'нет'
-          = render partial: 'questions/results', locals: {question: question}
+        .col-md-4 .col-md-offset-4
+          - if current_user && (current_user.answered? question)
+            %div
+              Вы ответили
+              %strong
+                = current_user.answer_for(question).value == true ? 'да' : 'нет'
+            = render partial: 'questions/results', locals: {question: question}
     .col-sm-3.answer
       - unless current_user.nil? || (cannot? :answer, question)
         = render 'answers/form', answer: question.answers.new, question: question, category: @category, value: false
