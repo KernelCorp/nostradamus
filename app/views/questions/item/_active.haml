@@ -19,7 +19,7 @@
           .question-title= question.title
           .question-text=   question.text
       .row
-        .col-md-4 .col-md-offset-4
+        .col-md-4.col-md-offset-4
           - if current_user && (current_user.answered? question)
             %div
               Вы ответили
