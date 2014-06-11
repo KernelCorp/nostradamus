@@ -5,7 +5,7 @@
         - answer.errors.full_messages.each do |msg|
           %li= msg
   = f.hidden_field :value, value: value ? 1 : 0
-  = f.button type: :submit, class: 'btn-lg  btn-default', title: (value ? 'Да' : 'Нет') do
+  = f.button type: :submit, class: "btn-lg  btn-default #{value ? 'yes' : 'no'}", title: (value ? 'Да' : 'Нет') do
     -if value
       %i.glyphicon.glyphicon-thumbs-up
     -else
