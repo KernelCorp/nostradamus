@@ -1,6 +1,8 @@
 class EventsController < InheritedResources::Base
   actions :index
 
+  require 'will_paginate/array'
+
   def index
     @events = current_user.events
     @new_events = Array.new
@@ -15,6 +17,9 @@ class EventsController < InheritedResources::Base
     end
     current_user.events_last_viewed_at = DateTime.now()
     current_user.save!
+
+    @events = @events.sort_by{ |e| e.created_at }.reverse!
+    @events = @events.paginate(page: params[:page], per_page: 10)
   end
 
 end
