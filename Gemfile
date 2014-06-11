@@ -6,6 +6,8 @@ gem 'rails', '4.0.1'
 gem 'mongoid', '4.0.0.beta1'
 
 gem 'mongoid-paperclip', require: 'mongoid_paperclip'
+gem 'will_paginate'
+gem 'will_paginate_mongoid'
 
 gem 'bootstrap-sass'
 
