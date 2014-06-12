@@ -1,5 +1,5 @@
 ActiveAdmin.register Question do
-  permit_params :title, :text, :image, :user, :category
+  permit_params :title, :text, :image, :user, :category, :start_date, :end_date
   # See permitted parameters documentation:
   # https://github.com/gregbell/active_admin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #
@@ -23,5 +23,13 @@ ActiveAdmin.register Question do
       f.input :end_date,   as: :datetime
     end
     f.actions
+  end
+
+  controller do
+    include DateTimeParams
+    before_action only: [:create, :update] do
+      set_datetime :question, :start_date
+      set_datetime :question, :end_date
+    end
   end
 end
