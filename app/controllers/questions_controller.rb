@@ -78,6 +78,17 @@ class QuestionsController < ApplicationController
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def question_params
+      params[:question][:start_date] = DateTime.new params[:question].delete('start_date(1i)').to_i,
+                                                    params[:question].delete('start_date(2i)').to_i,
+                                                    params[:question].delete('start_date(3i)').to_i,
+                                                    params[:question].delete('start_date(4i)').to_i,
+                                                    params[:question].delete('start_date(5i)').to_i
+      params[:question][:end_date]   = DateTime.new params[:question].delete('end_date(1i)').to_i,
+                                                    params[:question].delete('end_date(2i)').to_i,
+                                                    params[:question].delete('end_date(3i)').to_i,
+                                                    params[:question].delete('end_date(4i)').to_i,
+                                                    params[:question].delete('end_date(5i)').to_i
+
       params.require(:question).permit(:title, :image, :text, :end_date, :start_date)
     end
 end

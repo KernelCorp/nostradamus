@@ -26,12 +26,13 @@
       .form-group
         = f.label :start_date, :class => 'col-sm-3'
         .col-sm-9
-          = f.text_field :start_date, {:class => 'form-control', :type => 'date'}
+          = f.datetime_select :start_date, {:class => 'form-control', :type => 'date'}
 
       .form-group
         = f.label :end_date, :class => 'col-sm-3'
         .col-sm-9
-          = f.text_field :end_date, {:class => 'form-control', :type => 'date'}
+          = f.datetime_select :end_date, {:class => 'form-control', :type => 'date'}
+
 
 
 
