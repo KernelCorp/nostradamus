@@ -62,6 +62,8 @@ production:
       database: nostradamus_production
       hosts:
         - localhost:27017
+  options:
+    use_activesupport_time_zone: true
 
 test:
   sessions:
