@@ -19,8 +19,8 @@ ActiveAdmin.register Question do
       f.input :category
       f.input :user
       f.input :image,      as: :file
-      f.input :start_date, as: :date
-      f.input :end_date,   as: :date
+      f.input :start_date, as: :datetime
+      f.input :end_date,   as: :datetime
     end
     f.actions
   end
