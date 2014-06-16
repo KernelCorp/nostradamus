@@ -1,4 +1,5 @@
 Nostradamus::Application.routes.draw do
+  default_url_options host: Rails.env.production? ? 'nostravangus.ru' : 'localhost:3000'
 
   devise_for :admins, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)

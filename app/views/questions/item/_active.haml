@@ -29,6 +29,7 @@
             .vk_share_button_place
               = vk_button question.title, 
                 "#{question.text} Мой прогноз - #{answer}",
+                question.image.url(:default, timestamp: false),
                 '<span class="btn btn-primary">Поделиться<br> с друзьями</span>'
     .col-sm-3.answer
       - unless current_user.nil? || (cannot? :answer, question)
