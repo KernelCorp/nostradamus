@@ -12,6 +12,17 @@ ActiveAdmin.register Question do
   #  permitted << :other if resource.something?
   #  permitted
   # end
+  index do
+    selectable_column
+    column :title
+    column :text
+    column :end_date
+    column :right_answer
+    column :answers_count do |q|
+      q.answers.count
+    end
+  end
+
   form do |f|
     f.inputs do
       f.input :title
