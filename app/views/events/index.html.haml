@@ -21,6 +21,5 @@
       #event-date
         = event.created_at.strftime('%e.%m.%Y %H:%M')
 
-
-= will_paginate @events
+  = will_paginate @events, renderer: BootstrapPagination::Rails
 

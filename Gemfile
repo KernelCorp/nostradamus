@@ -46,6 +46,7 @@ gem 'russian'
 gem 'vkontakte_api', '~> 1.4'
 gem 'will_paginate'
 gem 'will_paginate_mongoid'
+gem 'will_paginate-bootstrap'
 
 
 group :doc do
