@@ -1,4 +1,6 @@
 class QuestionsController < ApplicationController
+  include DateTimeParams
+
   before_action :authenticate_user!, except: [:index, :show]
 
   load_resource :category
@@ -78,6 +80,9 @@ class QuestionsController < ApplicationController
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def question_params
+      set_datetime :question, :start_date
+      set_datetime :question, :end_date
+
       params.require(:question).permit(:title, :image, :text, :end_date, :start_date)
     end
 end

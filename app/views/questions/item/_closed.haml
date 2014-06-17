@@ -12,7 +12,12 @@
       %p
         = "Правильный ответ - #{question.right_answer ? 'Да' : 'Нет'}"
       - if user_signed_in? && current_user.answered?(question)
+        - answer = current_user.answer_for question
         %div
           Вы ответили
-          %strong
-            = current_user.answer_for(question).value == true ? 'да' : 'нет'
+          %strong= answer.yes_or_no
+        .vk_share_button_place
+          = vk_button question.title, 
+            "#{question.text} #{answer.is_right ? 'Я угадал' : 'Я ошибся'}",
+            question.image.url(:default, timestamp: false),
+            '<span class="btn btn-primary">Поделиться<br> с друзьями</span>'

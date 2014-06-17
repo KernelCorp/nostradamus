@@ -4,8 +4,8 @@ class Question
 
   field :title,        type: String
   field :text,         type: String
-  field :end_date,     type: Time
-  field :start_date,   type: Time
+  field :end_date,     type: DateTime
+  field :start_date,   type: DateTime
   field :right_answer, type: Mongoid::Boolean
   field :status,       type: String
 

@@ -10,4 +10,8 @@ class Answer
   scope :wrong, -> {where is_right: false}
 
   validates_uniqueness_of :user, scope: :question
+
+  def yes_or_no
+    value == true ? 'да' : 'нет'
+  end
 end

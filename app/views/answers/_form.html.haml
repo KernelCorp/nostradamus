@@ -1,18 +1,12 @@
-.row.answers
-  .col-sm-6
-    = form_for [category, question, answer] do |f|
-      - if answer.errors.any?
-        #error_explanation
-          %ul
-            - answer.errors.full_messages.each do |msg|
-              %li= msg
-      = f.hidden_field :value, value: 1
-      = f.button type: :submit, class: 'btn-lg  btn-default', title: 'Да' do
-        %i.glyphicon.glyphicon-thumbs-up
-  .col-sm-6
-    = form_for [category, question, answer] do |f|
-      = f.hidden_field :value, value: 0
-      = f.button type: :submit, class: 'btn-lg  btn-default', title: 'Нет' do
-        %i.glyphicon.glyphicon-thumbs-down
-
-
+= form_for [category, question, answer] do |f|
+  - if answer.errors.any?
+    #error_explanation
+      %ul
+        - answer.errors.full_messages.each do |msg|
+          %li= msg
+  = f.hidden_field :value, value: value ? 1 : 0
+  = f.button type: :submit, class: "btn-lg  btn-default #{value ? 'yes' : 'no'}", title: (value ? 'Да' : 'Нет') do
+    -if value
+      %i.glyphicon.glyphicon-thumbs-up
+    -else
+      %i.glyphicon.glyphicon-thumbs-down

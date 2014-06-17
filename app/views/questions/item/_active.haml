@@ -1,27 +1,40 @@
 .question-item.active
   .row
-    .col-sm-6
-      = image_tag question.image
-    .col-sm-6
-      .question-title= question.title
-      .question-text= question.text
-      - unless current_user
+    .col-sm-3.answer
+      -if current_user.nil?
         %div Необходимо войти, чтобы ответить
-      - else
-        - unless current_user.answered? question
-          = render 'answers/form', answer: question.answers.new, question: question, category: @category
-        - else
-          %div
-            Вы ответили
-            %strong
-              = current_user.answer_for(question).value == true ? 'да' : 'нет'
-          = render partial: 'questions/results', locals: {question: question}
+      -else
+        - if can?(:answer, question)
+          - unless current_user.answered? question
+            = render 'answers/form', answer: question.answers.new, question: question, category: @category, value: true
+        - if can? :close, question
+          = form_tag close_category_question_path(question.category, question), method: 'put', class: 'close-question' do
+            = hidden_field_tag :right_answer, true
+            = submit_tag 'Правильный ответ -  "Да"', class: 'btn btn-success', id: 'Да'
+    .col-sm-6.info
+      .row
+        .col-sm-6
+          = image_tag question.image
+        .col-sm-6
+          .question-title= question.title
+          .question-text=   question.text
+      .row
+        .col-md-4.col-md-offset-4
+          - if current_user.try :answered?, question
+            - answer = current_user.answer_for(question).yes_or_no
+            %div
+              Вы ответили
+              %strong= answer
+            = render partial: 'questions/results', locals: {question: question}
+            .vk_share_button_place
+              = vk_button question.title, 
+                "#{question.text} Мой прогноз - #{answer}",
+                question.image.url(:default, timestamp: false),
+                '<span class="btn btn-primary">Поделиться<br> с друзьями</span>'
+    .col-sm-3.answer
+      - unless current_user.nil? || (cannot? :answer, question)
+        = render 'answers/form', answer: question.answers.new, question: question, category: @category, value: false
       - if can? :close, question
         = form_tag close_category_question_path(question.category, question), method: 'put', class: 'close-question' do
-          = hidden_field_tag :right_answer, true
-          = submit_tag 'Закрыть с правильным ответом -  "Да"', class: 'btn btn-success', id: 'Да', style: "width:280px"
-        = form_tag close_category_question_path(question.category, question), method: 'put', class: 'close-question' do
           = hidden_field_tag :right_answer, false
-          = submit_tag 'Закрыть с правильным ответом - "Нет"', class: 'btn btn-danger', id: 'Нет'
-
-
+          = submit_tag 'Правильный ответ - "Нет"', class: 'btn btn-danger', id: 'Нет'
