@@ -1,3 +1,4 @@
+#encoding: utf-8
 class Answer
   include Mongoid::Document
   field :value,    type: Mongoid::Boolean

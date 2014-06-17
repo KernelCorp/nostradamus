@@ -1,37 +1,26 @@
-%h1{style: "text-align: center;"} Последние события
-
--#%table{cols: 4, width: 960}
--#  %tr
--#    %th{style: "width: 430px;"} Вопрос
--#    %th{style: "width: 150px"} Событие
--#    %th{style: "width: 230px"} Дата
--#    %th{style: "width: 150px"} Ссылка
--#
--#  - @events.each do |event|
--#    - (@new_events.include? event) ? event_class = 'new_event' : event_class = ''
--#    %tr{class: event_class}
--#      %td{style: "text-align: left;"}
--#        %div
--#          - s = event.question.text
--#          - s = s.split(" ").each_with_object("") {|x,ob| break ob unless (ob.length + " ".length + x.length <= 70);ob << (" " + x)}.strip
--#          - if s != event.question.text
--#            - s = s + '...'
--#          = s
--#      %td
--#        %div
--#          - event.type == 'new_question' ? type = 'Новый вопрос' : type = 'Вопрос закрыт'
--#          = type
--#      %td
--#        %div
--#          = event.created_at.strftime('%a, %d %b %Y %H:%M:%S')
--#      %td
--#        %div
--#          = link_to "Ссылка", category_questions_path(event.question.category)
+%h1{style: "text-align: center; color: white;"} Последние события
 
 #events_feed_container
   - @events.each do |event|
     - (@new_events.include? event) ? event_class = 'new_event' : event_class = ''
     #event_container{class: event_class}
+      #event-top
+        - if event.type == 'new_question'
+          %span{style:"color: green;"}
+            Новый вопрос&nbsp
+        - else
+          %span{style:"color: red;"}
+            Вопрос закрыт&nbsp
+        - s = event.question.text
+        - s = s.split(" ").each_with_object("") {|x,ob| break ob unless (ob.length + " ".length + x.length <= 80);ob << (" " + x)}.strip
+        - if s != event.question.text
+          - s = s + '...'
+        = link_to s, category_questions_path(event.question.category)
+      #event-category
+        = link_to event.question.category.name, category_path(event.question.category)
+      #event-date
+        = event.created_at.strftime('%e.%m.%Y %H:%M')
+
 
 = will_paginate @events
 
