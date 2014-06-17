@@ -1,33 +1,37 @@
 %h1{style: "text-align: center;"} Последние события
 
-%table.zebra{cols: 4, width: 960}
-  %tr
-    %th{style: "width: 430px;"} Вопрос
-    %th{style: "width: 150px"} Событие
-    %th{style: "width: 230px"} Дата
-    %th{style: "width: 150px"} Ссылка
+-#%table{cols: 4, width: 960}
+-#  %tr
+-#    %th{style: "width: 430px;"} Вопрос
+-#    %th{style: "width: 150px"} Событие
+-#    %th{style: "width: 230px"} Дата
+-#    %th{style: "width: 150px"} Ссылка
+-#
+-#  - @events.each do |event|
+-#    - (@new_events.include? event) ? event_class = 'new_event' : event_class = ''
+-#    %tr{class: event_class}
+-#      %td{style: "text-align: left;"}
+-#        %div
+-#          - s = event.question.text
+-#          - s = s.split(" ").each_with_object("") {|x,ob| break ob unless (ob.length + " ".length + x.length <= 70);ob << (" " + x)}.strip
+-#          - if s != event.question.text
+-#            - s = s + '...'
+-#          = s
+-#      %td
+-#        %div
+-#          - event.type == 'new_question' ? type = 'Новый вопрос' : type = 'Вопрос закрыт'
+-#          = type
+-#      %td
+-#        %div
+-#          = event.created_at.strftime('%a, %d %b %Y %H:%M:%S')
+-#      %td
+-#        %div
+-#          = link_to "Ссылка", category_questions_path(event.question.category)
 
+#events_feed_container
   - @events.each do |event|
     - (@new_events.include? event) ? event_class = 'new_event' : event_class = ''
-    %tr{class: event_class}
-      %td{style: "text-align: left;"}
-        %div
-          - s = event.question.text
-          - s = s.split(" ").each_with_object("") {|x,ob| break ob unless (ob.length + " ".length + x.length <= 70);ob << (" " + x)}.strip
-          - if s != event.question.text
-            - s = s + '...'
-          = s
-      %td
-        %div
-          - event.type == 'new_question' ? type = 'Новый вопрос' : type = 'Вопрос закрыт'
-          = type
-      %td
-        %div
-          = event.created_at.strftime('%a, %d %b %Y %H:%M:%S')
-      %td
-        %div
-          = link_to "Ссылка", category_questions_path(event.question.category)
-
+    #event_container{class: event_class}
 
 = will_paginate @events
 
