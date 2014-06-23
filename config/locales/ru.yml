@@ -4,3 +4,6 @@ ru:
     few: ванги
     many: ванг
     other: ванг
+  will_paginate:
+    previous_label: "<"
+    next_label: ">"

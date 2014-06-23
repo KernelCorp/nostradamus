@@ -64,7 +64,7 @@ GEM
     bourbon (3.2.3)
       sass (~> 3.2)
       thor
-    bson (2.3.0)
+    bson (2.2.1)
     builder (3.1.4)
     cancancan (1.8.2)
     capistrano (2.15.5)
@@ -355,6 +355,8 @@ GEM
       rack (>= 1.0)
     websocket (1.0.7)
     will_paginate (3.0.5)
+    will_paginate-bootstrap (1.0.0)
+      will_paginate (>= 3.0.3)
     will_paginate_mongoid (2.0.1)
       mongoid
       will_paginate (~> 3.0)
@@ -402,4 +404,5 @@ DEPENDENCIES
   unicorn
   vkontakte_api (~> 1.4)
   will_paginate
+  will_paginate-bootstrap
   will_paginate_mongoid
