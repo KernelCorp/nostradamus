@@ -8,7 +8,7 @@ class EventsController < InheritedResources::Base
     current_user.save!
 
     @events = @events.sort_by{ |e| e.created_at }.reverse!
-    @events = @events.paginate(page: params[:page], per_page: 10)
+    @events = @events.paginate(page: params[:page], per_page: 9)
   end
 
 end

@@ -1,4 +1,4 @@
-%h1{style: "text-align: center; color: white;"} Последние события
+%h1{style: "text-align: center; color: white; margin-top: 0px;"} Последние события
 
 #events_feed_container
   - @events.each do |event|
@@ -20,5 +20,6 @@
       #event-date
         = event.created_at.strftime('%e.%m.%Y %H:%M')
 
-  = will_paginate @events, renderer: BootstrapPagination::Rails
+  #pagination_container
+    = will_paginate @events, renderer: BootstrapPagination::Rails
 
