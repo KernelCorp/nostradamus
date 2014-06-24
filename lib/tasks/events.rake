@@ -7,25 +7,16 @@ namespace :nostra do
     events.destroy
   end
 
-  task search_events: :environment do
-    bad_events = Array.new
-    Event.each do |event|
-      if !((event.type == 'new_question') || (event.type == 'close_question'))
-        puts 'ERROR: Event ' + event.id + ' has wrong type'
-        bad_events = bad_events | [event]
-      end
-      if event.created_at == nil
-        puts 'ERROR: Event ' + event.id + ' has no timestamps'
-        bad_events = bad_events | [event]
-      end
-      if !(event.question.is_a? Question)
-        puts 'ERROR: Event ' + event.id + ' has bad question'
-      end
+  task search_bad_events: :environment do
+    #Define hash with structure bad_event => error_message
+    bad_events = Hash.new
+    Event.where(created_at: nil).all.each do |event|
+      bad_events[event.id] = 'Created_at field is empty'
     end
-    puts 'Bad events list: '
-    bad_events.each do |event|
-      puts event.id
+    Event.where(question: nil).all.each do |event|
+      bad_events[event.id] = 'Event has no question'
     end
+    puts bad_events
   end
 
 end
