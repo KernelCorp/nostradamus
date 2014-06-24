@@ -10,8 +10,4 @@ class Event
 
   belongs_to :question
 
-  def viewed_by!(user)
-    @is_new = user.events_last_viewed_at < self.created_at
-  end
-
 end

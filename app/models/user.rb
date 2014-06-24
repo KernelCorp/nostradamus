@@ -42,15 +42,18 @@ class User
 
   def events
     questions = self.answered_questions
-    events = Event.where(type: 'new_question').all
-    #TODO: Convert to query
-    closed_events = Array.new
-    Event.where(type: 'close_question').all.each do |event|
-      if questions.include? event.question
-        closed_events << event
-      end
-    end
-    events | closed_events
+    new_events = Event.where(type: 'new_question').all
+
+    #closed_events = Array.new
+    #Event.where(type: 'close_question').all.each do |event|
+    #  if questions.include? event.question
+    #    closed_events << event
+    #  end
+    #end
+
+    closed_events = Event.where(type: 'close_question').
+                          in(question: questions).all
+    new_events | closed_events
   end
 
   def answered_questions
@@ -60,7 +63,6 @@ class User
     end
     questions
   end
-
 
   def self.find_for_vkontakte_oauth(access_token)
     user = User.where(:url => access_token.info.urls.Vkontakte).first

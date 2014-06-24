@@ -2,8 +2,7 @@
 
 #events_feed_container
   - @events.each do |event|
-    - (@new_events.include? event) ? event_class = 'new_event' : event_class = ''
-    #event_container{class: event_class}
+    #event_container
       #event-top
         - if event.type == 'new_question'
           %span{style:"color: green;"}
